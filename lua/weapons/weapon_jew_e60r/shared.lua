@@ -24,7 +24,7 @@ SWEP.Base				= "weapon_jew_base"
 SWEP.Category			= "Star Wars (Updated)"
 
 SWEP.Spawnable			= true
-SWEP.AdminSpawnable		= true
+SWEP.AdminOnly			= true
 
 SWEP.ViewModel			= "models/weapons/v_E60R.mdl"
 SWEP.WorldModel			= "models/weapons/w_E60R.mdl"
