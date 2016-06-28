@@ -25,6 +25,6 @@ function ENT:PhysicsCollide(data,phys)
 		self.Entity:EmitSound(Sound("Flashbang.Bounce"))
 	end
 	
-	local impulse = -data.Speed * data.HitNormal * .4 + (data.OurOldVelocity * -.6)
+	local impulse = -data.Speed * data.HitNormal * .1 + (data.OurOldVelocity * -.1)
 	phys:ApplyForceCenter(impulse)
 end
