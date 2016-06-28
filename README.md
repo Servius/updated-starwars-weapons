@@ -30,6 +30,8 @@ sv_enablevaporize	0/1 // Disable/Enable the vaporize function. (Default: 0)
 
 Let me know if there are any issues somewhere or areas that could be improved. Make a pull request.
 
+This addon is under the GNU GPL v3 License. All modifications MUST have their source made publicly available.
+
 ### Workshop Addons:
 
  * [Star Wars Weapons](http://steamcommunity.com/sharedfiles/filedetails/?id=183549197) for the original weapons.
