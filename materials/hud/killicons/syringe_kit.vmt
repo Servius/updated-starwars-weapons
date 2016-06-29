@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "hud/killicons/syringe_kit"
+	"$translucent" 1
+}
