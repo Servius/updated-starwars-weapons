@@ -33,7 +33,7 @@ SWEP.Weight					= 5
 SWEP.AutoSwitchTo			= false
 SWEP.AutoSwitchFrom			= false
 
-local FireSound 			= Sound ("weapons/DC17M_AT_fire.wav");
+local FireSound 			= Sound ("weapons/sw_rocket/alt_rocket_fire.wav");
 local ReloadSound			= Sound ("weapons/DC17M_AT_reload.wav");
 
 SWEP.Primary.Recoil			= 10
