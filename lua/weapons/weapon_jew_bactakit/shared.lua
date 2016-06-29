@@ -1,11 +1,24 @@
-SWEP.PrintName = "Advanced Bacta Tube"
-SWEP.Author = "Doctor Jew"
-SWEP.Slot = 4
-SWEP.SlotPos = 0
-SWEP.Description = "Heals the wounded on the battlefield"
-SWEP.Contact = ""
-SWEP.Purpose = "Heal players on the battlefield!"
-SWEP.Instructions = "Left click to heal someone."
+if CLIENT then
+
+	SWEP.PrintName = "Advanced Bacta Tube"
+	SWEP.Author = "Doctor Jew"
+	SWEP.Slot = 4
+	SWEP.SlotPos = 0
+	SWEP.Description = "Heals the wounded on the battlefield"
+	SWEP.Contact = ""
+	SWEP.Purpose = "Heal players on the battlefield!"
+	SWEP.Instructions = "Left click to heal someone."
+
+	SWEP.WepSelectIcon = surface.GetTextureID("HUD/killicons/bacta_Kit")
+	killicon.Add( "npc_sw_weapon_752_dc17m_br", "HUD/killicons/bacta_kit", Color( 255, 80, 0, 255 ) )
+
+end
+
+if SERVER then
+
+	AddCSLuaFile("shared.lua")
+	
+end
 
 SWEP.Spawnable = true
 SWEP.AdminOnly = true
