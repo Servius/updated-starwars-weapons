@@ -27,7 +27,7 @@ SWEP.Secondary.Ammo = "none"
 SWEP.AmmoDisplay = { }
 
 SWEP.Sounds	= {
-	ModeSwitch = Sound( "npc/turret_floor/click1.wav" ),
+	ModeSwitch = Sound( "weapons/sw_detonator/sw_detonator_select.wav" ),
 	ThrowSound = Sound( "weapons/slam/throw.wav" ),
 }
 
@@ -126,9 +126,11 @@ function SWEP:Reload( )
 		else
 			self:SetFuseAdjust( self:GetFuseAdjust( ) + 1 )
 		end
-		
-		self.Owner:EmitSound( self.Sounds.ModeSwitch, 50 )
-		self.Owner:PrintMessage(HUD_PRINTTALK, "Fuse Time: " .. self:GetFuseAdjust())
+
+		if CLIENT then
+			self.Owner:EmitSound( self.Sounds.ModeSwitch, 50 )
+			self.Owner:PrintMessage(HUD_PRINTTALK, "Fuse Time: " .. self:GetFuseAdjust())
+		end
 	end
 
 end
