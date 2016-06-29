@@ -95,6 +95,10 @@ function ENT:Initialize( )
 		self:PhysicsInit( SOLID_VPHYSICS )
 		self:SetMoveType( MOVETYPE_VPHYSICS )
 		self:SetSolid( SOLID_VPHYSICS )
+
+		if SWDetPlanted then
+			self:EmitSound("weapons/sw_detonator/sw_detonator_stick.wav", 100)
+		end
 		
 		self:PhysWake( )
 	end
