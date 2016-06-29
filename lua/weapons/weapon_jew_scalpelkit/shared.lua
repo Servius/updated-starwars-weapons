@@ -1,11 +1,24 @@
-SWEP.PrintName = "Vibro-Scalpel"
-SWEP.Author = "Doctor Jew"
-SWEP.Slot = 4
-SWEP.SlotPos = 0
-SWEP.Description = "Heals the wounded on the battlefield"
-SWEP.Contact = ""
-SWEP.Purpose = "A precision instrument for every task!"
-SWEP.Instructions = "Left click to heal someone. Right click to harm someone."
+if CLIENT then
+
+	SWEP.PrintName = "Vibro-Scalpel"
+	SWEP.Author = "Doctor Jew"
+	SWEP.Slot = 4
+	SWEP.SlotPos = 0
+	SWEP.Description = "Heals the wounded on the battlefield"
+	SWEP.Contact = ""
+	SWEP.Purpose = "A precision instrument for every task!"
+	SWEP.Instructions = "Left click to heal someone. Right click to harm someone."
+
+	SWEP.WepSelectIcon = surface.GetTextureID("HUD/killicons/scalpel_Kit")
+	killicon.Add( "npc_sw_weapon_752_dc17m_br", "HUD/killicons/scalpel_kit", Color( 255, 80, 0, 255 ) )
+
+end
+
+if SERVER then
+	
+	AddCSLuaFile("shared.lua")
+
+end
 
 SWEP.Spawnable = true
 SWEP.AdminOnly = true
