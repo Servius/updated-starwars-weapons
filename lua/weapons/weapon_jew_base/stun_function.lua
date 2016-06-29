@@ -6,7 +6,7 @@ if ( SERVER ) then
 end
 
 //local StunSound = Sound ("weapons/DC19_fire.wav")
-local StunSound = Sound ("weapons/phaser/phaser_stun.wav")
+local StunSound = Sound ("weapons/sw_stun.wav")
 local Phaseredrags = {}
 local Phaseruniquetimer1 = 0
 

@@ -24,7 +24,7 @@ function SWEP:Vaporize()
 
 	if ( !self:CanPrimaryAttack() ) then return end
 
-	self.Weapon:EmitSound("weapons/phaser/tng_weapons_clean.wav", 150)
+	self.Weapon:EmitSound("weapons/sw_vaporize.wav", 150)
 	-- Emit the gun sound when you fire
 
 	self.Owner:ViewPunch( Angle( math.Rand(-20,-0.1) * self.Primary.Recoil, math.Rand(-0.1,0.1) *self.Primary.Recoil, 0 ) )
