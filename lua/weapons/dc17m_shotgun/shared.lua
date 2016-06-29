@@ -18,7 +18,7 @@ if ( CLIENT ) then
 
 
 
-	SWEP.PrintName			= "DC-17Sh Multi-Round Shotgun"			
+	SWEP.PrintName			= "DC-17m Shotgun"			
 
 	SWEP.Author				= "Chatterbox"
 
