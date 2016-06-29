@@ -24,8 +24,9 @@ Contributors
 Important server settings:
 
 ```lua
-sv_enablestun		0/1 // Disable/Enable the stun function. (Default: 1)
-sv_enablevaporize	0/1 // Disable/Enable the vaporize function. (Default: 0)
+sw_enablestun		  0/1 // Disable/Enable the stun function. (Default: 1)
+sw_enablevaporize	0/1 // Disable/Enable the vaporize function. (Default: 0)
+sw_scalpelharm    0/1 // Disable/Enable the harm function for the vibro-scalpel. (Default: 0)
 ```
 
 Let me know if there are any issues somewhere or areas that could be improved. Make a pull request.
