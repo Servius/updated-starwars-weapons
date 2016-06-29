@@ -70,7 +70,7 @@ function ENT:ActivateX( scale )
 		self:SetPlaybackRate( 1 / self:GetBurnAdjust( ) )
 		
 		if not self.BurnSound then
-			self.BurnSound = CreateSound( self, Sound( "weapons/sw_detonator_startup.wav" ) )
+			self.BurnSound = CreateSound( self, Sound( "weapons/sw_detonator/sw_detonator_startup.wav" ) )
 		end
 		self.BurnSound:Play( )
 	end
@@ -159,7 +159,7 @@ end
 function ENT:Explode( )
 
 	if not self.DetonateSound then
-			self.DetonateSound = CreateSound( self, Sound( "weapons/sw_detonator_explode.wav" ) )
+			self.DetonateSound = CreateSound( self, Sound( "weapons/sw_detonator/sw_detonator_explode.wav" ) )
 	end
 	self.DetonateSound:Play( )
 
@@ -177,7 +177,7 @@ function ENT:Explode( )
 	local explode = ents.Create( "env_explosion" )
 	explode:SetPos( self:GetPos() )
 	explode:SetKeyValue( "iMagnitude", "250" )
-	explode:EmitSound( "weapon_AWP.Single", 100, 100 )
+	explode:EmitSound( "weapons/sw_detonator/sw_detonator_explosion.wav", 100, 100 )
 	explode:Spawn()
 	explode:Activate()
 	explode:Fire( "Explode", "", 0 )
