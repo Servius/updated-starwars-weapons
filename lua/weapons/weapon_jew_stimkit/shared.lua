@@ -1,11 +1,24 @@
-SWEP.PrintName = "Field Stim Shot"
-SWEP.Author = "Doctor Jew"
-SWEP.Slot = 4
-SWEP.SlotPos = 0
-SWEP.Description = "Quick stimulating shot."
-SWEP.Contact = ""
-SWEP.Purpose = "A quick boost of adrenaline!"
-SWEP.Instructions = "Left click: Health player. Right click: Heal yourself."
+if CLIENT then
+
+	SWEP.PrintName = "Field Stim Shot"
+	SWEP.Author = "Doctor Jew"
+	SWEP.Slot = 4
+	SWEP.SlotPos = 0
+	SWEP.Description = "Quick stimulating shot."
+	SWEP.Contact = ""
+	SWEP.Purpose = "A quick boost of adrenaline!"
+	SWEP.Instructions = "Left click: Health player. Right click: Heal yourself."
+
+	SWEP.WepSelectIcon = surface.GetTextureID("HUD/killicons/syringe_Kit")
+	killicon.Add( "npc_sw_weapon_752_dc17m_br", "HUD/killicons/syringe_kit", Color( 255, 80, 0, 255 ) )
+
+end
+
+if SERVER then
+
+	AddCSLuaFile("shared.lua")
+
+end
 
 SWEP.Spawnable = true
 SWEP.AdminOnly = true
@@ -90,8 +103,10 @@ function SWEP:SecondaryAttack()
 	if self.Owner:Health() >= maxhealth then
 		if not CLIENT then return end
 		self.Owner:PrintMessage(HUD_PRINTTALK, "The syringe is not effective past this health!")
+		self:SetNextSecondaryFire(CurTime())
 	else
 		self.Owner:SetHealth(self.Owner:Health() + 75)
+		self:EmitSound("weapons/medkit/squirt.wav")
 		if self.Owner:Health() > maxhealth then
 			self.Owner:SetHealth(maxhealth)
 		end
