@@ -26,6 +26,8 @@ SWEP.Secondary.Ammo = "none"
 
 SWEP.AmmoDisplay = { }
 
+SWDetPlanted = true
+
 SWEP.Sounds	= {
 	ModeSwitch = Sound( "weapons/sw_detonator/sw_detonator_select.wav" ),
 	ThrowSound = Sound( "weapons/slam/throw.wav" ),
@@ -140,6 +142,8 @@ function SWEP:PrimaryAttack( )
 	
 	self:SetNextPrimaryFire( CurTime( ) + 4 )
 	self:SetNextSecondaryFire( CurTime( ) + 4 )
+
+	SWDetPlanted = true
 	
 	timer.Simple( 2, function( ) self:PlaceTNT( ) end )
 end
@@ -149,6 +153,8 @@ function SWEP:SecondaryAttack( )
 	
 	self:SetNextPrimaryFire( CurTime( ) + 3.5 )
 	self:SetNextSecondaryFire( CurTime( ) + 3.5 )
+
+	Planted = false
 	
 	timer.Simple( 2, function( ) self:TossTNT( ) end )
 end
