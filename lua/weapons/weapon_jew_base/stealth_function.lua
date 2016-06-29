@@ -5,7 +5,7 @@ if ( SERVER ) then
 end
 
 
-local StealthFireSound		= Sound ("weapons/dc19_fire.wav")
+local StealthFireSound		= Sound ("weapons/dc15a_supressed_by_st.wav")
 function SWEP:StealthFire()
 	self.Primary.Recoil			= 0.8
 	self.Primary.Damage			= 40
