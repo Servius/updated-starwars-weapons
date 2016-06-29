@@ -48,6 +48,11 @@ function SWEP:Initialize()
 	self:SetHoldType(self.HoldType)
 end
 
+function SWEP:Deploy()
+	self.Owner:PrintMessage(HUD_PRINTTALK, "WARNING! THIS WEAPON IS VERY DANGEROUS!")
+	return true
+end
+
 function SWEP:PrimaryAttack()
   if CLIENT then return end
   local laser = ents.Create("laser_ent")
