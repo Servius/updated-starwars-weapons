@@ -4,6 +4,8 @@ if ( SERVER ) then
 	
 end
 
+local disablePrintTime = 0
+
 function SWEP:Vaporize()
 
 	if weaponVaporize:GetBool() then
@@ -71,6 +73,9 @@ function SWEP:Vaporize()
 	end
 
 	else
+		if not CLIENT then return end
+		if disablePrintTime > CurTime() then return end
 		self.Owner:PrintMessage(HUD_PRINTTALK,"This server has disabled the vaporize mode!")
+		disablePrintTime = CurTime() + 5
 	end
 end

@@ -16,7 +16,7 @@ if ( CLIENT ) then
 	SWEP.SlotPos			= 3
 	SWEP.WepSelectIcon = surface.GetTextureID("HUD/killicons/DC15S")
 	
-	killicon.Add( "weapon_752_dc15s", "HUD/killicons/DC15S", Color( 255, 80, 0, 255 ) )
+	killicon.Add( "weapon_jew_dc15s", "HUD/killicons/DC15S", Color( 255, 80, 0, 255 ) )
 	
 end
 

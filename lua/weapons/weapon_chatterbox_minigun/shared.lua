@@ -15,7 +15,7 @@ if ( CLIENT ) then
 	SWEP.SlotPos			= 3
 	SWEP.WepSelectIcon = surface.GetTextureID("HUD/killicons/IHR")
 	
-	killicon.Add( "weapon_752_ihr", "HUD/killicons/IHR", Color( 255, 80, 0, 255 ) )
+	killicon.Add( "weapon_chatterbox_minigun", "HUD/killicons/IHR", Color( 255, 80, 0, 255 ) )
 	
 end
 
@@ -43,7 +43,7 @@ SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.035
 SWEP.Primary.ClipSize		= 750
 SWEP.Primary.Delay			= 0.1
-SWEP.Primary.DefaultClip	= 9999
+SWEP.Primary.DefaultClip	= 750
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
 SWEP.Primary.Tracer 		= "effect_sw_laser_blue"

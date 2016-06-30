@@ -10,7 +10,7 @@ if CLIENT then
 	SWEP.Instructions = "Left click to heal someone."
 
 	SWEP.WepSelectIcon = surface.GetTextureID("HUD/killicons/bacta_Kit")
-	killicon.Add( "npc_sw_weapon_752_dc17m_br", "HUD/killicons/bacta_kit", Color( 255, 80, 0, 255 ) )
+	killicon.Add( "weapon_jew_bactakit", "HUD/killicons/bacta_kit", Color( 255, 80, 0, 255 ) )
 
 end
 

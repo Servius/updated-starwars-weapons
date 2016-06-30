@@ -9,6 +9,7 @@ end
 local StunSound = Sound ("weapons/sw_stun.wav")
 local Phaseredrags = {}
 local Phaseruniquetimer1 = 0
+local disablePrintTime = 0
 
 function SWEP:Stun()
 	if weaponStun:GetBool() then
@@ -64,7 +65,10 @@ function SWEP:Stun()
 	end
 
 	else
+		if not CLIENT then return end
+		if disablePrintTime > CurTime() then return end
 		self.Owner:PrintMessage(HUD_PRINTTALK,"This server has disabled the stun mode!")
+		disablePrintTime = CurTime() + 5
 	end
 end
 

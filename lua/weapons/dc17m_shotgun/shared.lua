@@ -32,7 +32,7 @@ if ( CLIENT ) then
 
 	
 
-	killicon.Add( "npc_sw_weapon_752_dc17m_br", "HUD/killicons/DC17M_BR", Color( 255, 80, 0, 255 ) )
+	killicon.Add( "dc17m_shotgun", "HUD/killicons/DC17M_BR", Color( 255, 80, 0, 255 ) )
 
 
 
