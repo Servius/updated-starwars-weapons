@@ -10,7 +10,7 @@ SWEP.Instructions 		= "Left click to throw the grenade."
 SWEP.Category 			= "Star Wars (Updated)"
 SWEP.Slot               = 4
 SWEP.SlotPos            = 0
-SWEP.ViewModelFlip		= true
+SWEP.ViewModelFlip		= false
 SWEP.UseHands			= true
 end
 
@@ -22,8 +22,8 @@ SWEP.HoldType           = "grenade"
 SWEP.Spawnable			= true
 SWEP.AdminSpawnable		= true
 
-SWEP.ViewModel			= "models/weapons/v_eq_smokegrenade.mdl"
-SWEP.WorldModel			= "models/weapons/w_eq_smokegrenade.mdl"
+SWEP.ViewModel			= "models/weapons/cstrike/c_eq_flashbang.mdl"
+SWEP.WorldModel			= "models/weapons/w_eq_flashbang.mdl"
 
 SWEP.Primary.Sound			= Sound("Default.PullPin_Grenade")
 SWEP.Primary.Recoil			= 0
@@ -114,6 +114,19 @@ function SWEP:Think()
 			end
 		end
 	end
+end
+
+function SWEP:PreDrawViewModel( vm )
+     vm:SetMaterial("models/weapons/v_models/grenades/virus_grenade")
+end
+
+function SWEP:PostDrawViewModel( vm ) -- Paint it back
+     vm:SetMaterial("")
+end
+
+function SWEP:DrawWorldModel()
+	self:DrawModel()
+	self:SetMaterial("models/weapons/v_models/grenades/virus_grenade")
 end
 
 function SWEP:GetGrenadeName()

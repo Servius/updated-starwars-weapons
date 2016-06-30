@@ -9,7 +9,8 @@ local VirusTimer = Sound("weapons/bacta_bomb.wav")
 
 function ENT:Initialize()
 
-	self.Entity:SetModel("models/weapons/w_eq_smokegrenade.mdl")
+	self.Entity:SetModel("models/weapons/w_eq_flashbang.mdl")
+	self.Entity:SetMaterial("models/weapons/v_models/grenades/virus_grenade")
 	self.Entity:PhysicsInit( SOLID_VPHYSICS )
 	self.Entity:SetMoveType( MOVETYPE_VPHYSICS )
 	self.Entity:SetSolid( SOLID_VPHYSICS )
@@ -98,6 +99,15 @@ function ENT:Think()
 				if (tr.Fraction==1) and v:IsPlayer() then
 					local stunamount = math.ceil(dist/(maxrange/maxstun))
 					v:ViewPunch( Angle( stunamount*((math.random()*6)-2), stunamount*((math.random()*6)-2), stunamount*((math.random()*4)-1) ) )
+					if not v.IsCoughing and math.random(1,6) == 2 then
+					v:EmitSound("ambient/voices/cough"..(math.random(1,4))..".wav", 70)
+					v.IsCoughing = true
+					timer.Simple(3, function()
+							if IsValid(v) then
+								v.IsCoughing = nil
+							end
+						end)
+					end
 				end
 				if (tr.Fraction==1) then
 					Poison(v, self.Owner, "weapon_shadowvirus_grenade")

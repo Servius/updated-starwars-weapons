@@ -9,7 +9,8 @@ local BactaTimer = Sound("weapons/bacta_bomb.wav")
 
 function ENT:Initialize()
 
-	self.Entity:SetModel("models/weapons/w_eq_smokegrenade.mdl")
+	self.Entity:SetModel("models/weapons/w_eq_flashbang.mdl")
+	self.Entity:SetMaterial("models/weapons/v_models/grenades/bacta_grenade")
 	self.Entity:PhysicsInit( SOLID_VPHYSICS )
 	self.Entity:SetMoveType( MOVETYPE_VPHYSICS )
 	self.Entity:SetSolid( SOLID_VPHYSICS )
