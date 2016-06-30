@@ -118,14 +118,16 @@ function SWEP:SecondaryAttack()
     self:GetOwner():LagCompensation(false)
 
     if found then
-        found:SetHealth(found:Health() - 10) -- HP Per a second value
+        found:SetHealth(found:Health() - 3) -- HP Per a second value
+        found:EmitSound("weapons/medkit/squirt.wav")
         if found:Health() <= 0 then
         	found:Kill()
         end
-        self:EmitSound("medkit/buzz.wav")
+        self:EmitSound("weapons/medkit/buzz.wav")
     end
 	else
 		self:SetNextSecondaryFire(CurTime() + 5)
+		if not CLIENT then return end
 		self.Owner:PrintMessage(HUD_PRINTTALK,"This server has disabled the harm function!")
 	end
 end

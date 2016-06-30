@@ -83,6 +83,7 @@ function SWEP:FireRocket()
 	local side = aim:Cross(Vector(0,0,1))
 	local up = side:Cross(aim)
 	local pos = self.Owner:GetShootPos() +  aim * 24 + side * 1 + up * -2	--offsets the rocket so it spawns from the muzzle (hopefully)
+	if SERVER then
 	local rocket = ents.Create("dc17m_at_rocket")
 		if !rocket:IsValid() then return false end
 		rocket:SetAngles(aim:Angle())
@@ -91,6 +92,7 @@ function SWEP:FireRocket()
 	rocket:Spawn()
 	rocket:Activate()
 	rocket:SetVelocity(rocket:GetForward()*-500)
+	end
 end
 
 function SWEP:Think()
