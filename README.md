@@ -12,6 +12,9 @@ Currently Includes:
  * Improved E60-R
  * Star Wars Oribital Laser
  * Z-6 Rotary Blaster Cannon
+ * Field Stim Shot
+ * Advanced Bacta Tube
+ * Vibro-Scalpel
 
 There will be more to come and hopefully weapons with c_hands at some point.
 
