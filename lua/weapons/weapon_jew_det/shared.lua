@@ -26,7 +26,7 @@ SWEP.Secondary.Ammo = "none"
 
 SWEP.AmmoDisplay = { }
 
-SWDetPlanted = true
+SWDetPlanted = false
 
 SWEP.Sounds	= {
 	ModeSwitch = Sound( "weapons/sw_detonator/sw_detonator_select.wav" ),
@@ -129,10 +129,9 @@ function SWEP:Reload( )
 			self:SetFuseAdjust( self:GetFuseAdjust( ) + 1 )
 		end
 
-		if CLIENT then
-			self.Owner:EmitSound( self.Sounds.ModeSwitch, 50 )
-			self.Owner:PrintMessage(HUD_PRINTTALK, "Fuse Time: " .. self:GetFuseAdjust())
-		end
+		self.Owner:EmitSound( self.Sounds.ModeSwitch, 50 )
+		self.Owner:PrintMessage(HUD_PRINTTALK, "Fuse Time: " .. self:GetFuseAdjust())
+
 	end
 
 end
@@ -154,7 +153,7 @@ function SWEP:SecondaryAttack( )
 	self:SetNextPrimaryFire( CurTime( ) + 3.5 )
 	self:SetNextSecondaryFire( CurTime( ) + 3.5 )
 
-	Planted = false
+	SWDetPlanted = false
 	
 	timer.Simple( 2, function( ) self:TossTNT( ) end )
 end

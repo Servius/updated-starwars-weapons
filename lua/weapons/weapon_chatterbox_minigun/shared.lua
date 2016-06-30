@@ -25,7 +25,7 @@ SWEP.Base					= "weapon_jew_base"
 SWEP.Category				= "Star Wars (Updated)"
 
 SWEP.Spawnable				= true
-SWEP.AdminSpawnable			= true
+SWEP.AdminOnly				= true
 
 SWEP.ViewModel				= "models/weapons/v_minigunvulcan.mdl"
 SWEP.WorldModel				= "models/weapons/w_m134_minigun.mdl"
@@ -34,8 +34,7 @@ SWEP.Weight					= 5
 SWEP.AutoSwitchTo			= false
 SWEP.AutoSwitchFrom			= false
 
-local FireSound 			= Sound ("weapons/DC15A_fire.wav");
-//local FireSound 			= Sound ("weapons/z6_fire.wav");
+local FireSound 			= Sound ("weapons/z6_fire.wav");
 local ReloadSound			= Sound ("weapons/dp23_reload.wav");
 
 SWEP.Primary.Recoil			= 0.5
@@ -43,7 +42,7 @@ SWEP.Primary.Damage			= 20
 SWEP.Primary.NumShots		= 1
 SWEP.Primary.Cone			= 0.035
 SWEP.Primary.ClipSize		= 750
-SWEP.Primary.Delay			= 0.05
+SWEP.Primary.Delay			= 0.1
 SWEP.Primary.DefaultClip	= 9999
 SWEP.Primary.Automatic		= true
 SWEP.Primary.Ammo			= "ar2"
