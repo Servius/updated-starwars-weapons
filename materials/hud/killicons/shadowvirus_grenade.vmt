@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "hud/killicons/shadowvirus_grenade"
+	"$translucent" 1
+}

@@ -97,7 +97,10 @@ function ENT:Initialize( )
 		self:SetSolid( SOLID_VPHYSICS )
 
 		if SWDetPlanted then
-			self:EmitSound("weapons/sw_detonator/sw_detonator_stick.wav", 100)
+			if not self.PlantSound then
+				self.PlantSound = CreateSound(self, Sound("weapons/sw_detonator/sw_detonator_stick.wav"))
+			end
+			self.PlantSound:Play()
 		end
 		
 		self:PhysWake( )

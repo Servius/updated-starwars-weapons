@@ -12,6 +12,11 @@ SWEP.Slot               = 4
 SWEP.SlotPos            = 0
 SWEP.ViewModelFlip		= false
 SWEP.UseHands			= true
+
+SWEP.WepSelectIcon = surface.GetTextureID("HUD/killicons/shadowvirus_grenade")
+
+killicon.Add( "weapon_shadowvirus_grenade", "HUD/killicons/shadowvirus_grenade", Color( 255, 80, 0, 255 ) )
+
 end
 
 SWEP.Icon = "VGUI/ttt/icon_nades"
@@ -74,8 +79,10 @@ function SWEP:PrimaryAttack()
 		self.Primed = 1
 		//self.Weapon:EmitSound(self.Primary.Sound)
 	end
-	 
+end
 
+function SWEP:SecondaryAttack()
+	return false
 end
 
 function SWEP:Think()

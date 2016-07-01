@@ -24,6 +24,10 @@ SWEP.Primary.Ammo = "none"
 SWEP.Secondary.Automatic = false
 SWEP.Secondary.Ammo = "none"
 
+SWEP.PrintDelay 	= 0
+SWEP.FuseSelect 	= 1
+SWEP.SelectDelay	= 1
+
 SWEP.AmmoDisplay = { }
 
 SWDetPlanted = false
@@ -46,7 +50,7 @@ end
 
 function SWEP:CustomAmmoDisplay( )
 	self.AmmoDisplay.Draw = true
-	self.AmmoDisplay.PrimaryClip = 1 * self:GetFuseAdjust( )
+	self.AmmoDisplay.PrimaryClip = self:GetFuseAdjust( )
 	
 	return self.AmmoDisplay
 end
@@ -120,18 +124,30 @@ end
 
 function SWEP:Reload( )
 
+	local FuseTimes = {1, 3, 5, 10, 15, 30}
+
 	if self:GetNextReload( ) <= CurTime( ) then
-		self:SetNextReload( CurTime( ) + .5 )
+		self:SetNextReload( CurTime( ) + 1 )
 		
-		if self:GetFuseAdjust( ) == 4 then
-			self:SetFuseAdjust( 1 )
+		if self.SelectDelay < CurTime() then
+			self.FuseSelect = math.fmod((self.FuseSelect + 1), 7)
+			self.SelectDelay = CurTime() + 1
 		else
-			self:SetFuseAdjust( self:GetFuseAdjust( ) + 1 )
+			return
 		end
 
-		self.Owner:EmitSound( self.Sounds.ModeSwitch, 50 )
-		self.Owner:PrintMessage(HUD_PRINTTALK, "Fuse Time: " .. self:GetFuseAdjust())
+		if self.FuseSelect < 1 then
+			self.FuseSelect = 1
+		end
 
+		self:SetFuseAdjust( FuseTimes[self.FuseSelect] )
+
+		if self.PrintDelay > CurTime() then return end
+		self.Owner:EmitSound( self.Sounds.ModeSwitch, 50 )
+
+		if not CLIENT then return end
+		self.Owner:PrintMessage(HUD_PRINTTALK, "Fuse Time: " .. self:GetFuseAdjust())
+		self.PrintDelay = CurTime() + 1
 	end
 
 end

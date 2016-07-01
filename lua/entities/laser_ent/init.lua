@@ -6,13 +6,11 @@ include('shared.lua')
 local dis = 5000
 
 sound.Add({
-  //name = "citadel_sound_start",
   name = "turbolaser",
   channel = CHAN_AUTO,
   pitch = {95,110},
   volume = 1.0,
   level = 511,
-  //sound = "ambient/explosions/citadel_end_explosion2.wav"
   sound = "weapons/turbolaser.wav"
 })
 
@@ -38,7 +36,7 @@ function ENT:Think()
   for k,v in pairs(ents.FindInSphere(self:GetPos(),dis)) do
     if (v:IsPlayer() or v:IsNPC()) then
       local damage = 4000/v:GetPos():Distance(self:GetPos())
-      v:TakeDamage(damage,self.Owner or self,self)
+      v:TakeDamage(damage,self,"laser_weapon")
     end
   end
 

@@ -56,6 +56,7 @@ SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = true
 SWEP.Secondary.Delay = 25
 SWEP.Secondary.Ammo = "none"
+SWEP.PrintDelay = 0
 
 function SWEP:PrimaryAttack()
     self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
@@ -71,7 +72,9 @@ function SWEP:PrimaryAttack()
 
         if v:Health() >= maxhealth then
         	if not CLIENT then return end
-        		self.Owner:PrintMessage(HUD_PRINTTALK, "The syringe is not effective past this health!")
+        	if self.PrintDelay > CurTime() then return end
+        	self.Owner:PrintMessage(HUD_PRINTTALK, "The syringe is not effective past this health!")
+        	self.PrintDelay = CurTime() + 3
         end
 
         local direction = v:GetShootPos() - self:GetOwner():GetShootPos()
@@ -92,7 +95,7 @@ function SWEP:PrimaryAttack()
         if found:Health() > foundmaxhealth then
         	found:SetHealth(foundmaxhealth)
         end
-        self:EmitSound("weapons/medkit/squirt.wav")
+        self:EmitSound("squirt_sound", 30)
     end
 end
 
@@ -102,7 +105,9 @@ function SWEP:SecondaryAttack()
 	local maxhealth = self.Owner:GetMaxHealth() + (self.Owner:GetMaxHealth() * 0.4)
 	if self.Owner:Health() >= maxhealth then
 		if not CLIENT then return end
+		if self.PrintDelay > CurTime() then return end
 		self.Owner:PrintMessage(HUD_PRINTTALK, "The syringe is not effective past this health!")
+		self.PrintDelay = CurTime() + 3
 		self:SetNextSecondaryFire(CurTime())
 	else
 		self.Owner:SetHealth(self.Owner:Health() + 75)

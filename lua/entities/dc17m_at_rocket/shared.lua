@@ -8,3 +8,7 @@
 ENT.Spawnable			= false
 ENT.AdminSpawnable		= false
 
+if CLIENT then
+	killicon.Add("dc17m_at_rocket","HUD/killicons/dc17m_br", Color( 255, 80, 0, 255 ))
+end
+

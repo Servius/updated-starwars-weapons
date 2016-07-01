@@ -59,6 +59,7 @@ SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = true
 SWEP.Secondary.Delay = 1
 SWEP.Secondary.Ammo = "none"
+SWEP.PrintDelay = 0
 
 function SWEP:PrimaryAttack()
     
@@ -86,8 +87,12 @@ function SWEP:PrimaryAttack()
     self:GetOwner():LagCompensation(false)
 
     if found then
+    	local maxhealth = found:GetMaxHealth()
         found:SetHealth(found:Health() + 2) -- HP Per a second value
-        self:EmitSound("weapons/medkit/buzz.wav")
+        self:EmitSound("buzz_sound", 50)
+        if found:Health() > maxhealth then
+        	found:SetHealth(maxhealth)
+        end
     end
 end
 
@@ -95,41 +100,43 @@ function SWEP:SecondaryAttack()
 
 	if scalpelHarm:GetBool() then
 
-	self:SetNextSecondaryFire(CurTime() + self.Secondary.Delay)
+		self:SetNextSecondaryFire(CurTime() + self.Secondary.Delay)
 
-    local found
-    local lastDot = -1 -- the opposite of what you're looking at
-    self:GetOwner():LagCompensation(true)
-    local aimVec = self:GetOwner():GetAimVector()
+    	local found
+    	local lastDot = -1 -- the opposite of what you're looking at
+    	self:GetOwner():LagCompensation(true)
+    	local aimVec = self:GetOwner():GetAimVector()
 
-    for k,v in pairs(player.GetAll()) do
-        if v == self:GetOwner() or v:GetShootPos():Distance(self:GetOwner():GetShootPos()) > 85 or not v:Alive() then continue end
+   		for k,v in pairs(player.GetAll()) do
+        	if v == self:GetOwner() or v:GetShootPos():Distance(self:GetOwner():GetShootPos()) > 85 or not v:Alive() then continue end
 
-        local direction = v:GetShootPos() - self:GetOwner():GetShootPos()
-        direction:Normalize()
-        local dot = direction:Dot(aimVec)
+       		local direction = v:GetShootPos() - self:GetOwner():GetShootPos()
+        	direction:Normalize()
+        	local dot = direction:Dot(aimVec)
 
-        -- Looking more in the direction of this player
-        if dot > lastDot then
-            lastDot = dot
-            found = v
-        end
-    end
-    self:GetOwner():LagCompensation(false)
+        	-- Looking more in the direction of this player
+        	if dot > lastDot then
+            	lastDot = dot
+            	found = v
+        	end
+    	end
+    	self:GetOwner():LagCompensation(false)
 
-    if found then
-        found:SetHealth(found:Health() - 3) -- HP Per a second value
-        found:EmitSound("weapons/medkit/squirt.wav")
-        if found:Health() <= 0 then
-        	found:Kill()
-        end
-        self:EmitSound("weapons/medkit/buzz.wav")
-    end
+    	if found then
+        	if SERVER then
+        		found:TakeDamage(3, self:GetOwner(), self:GetOwner():GetActiveWeapon())
+        	end
+       		found:EmitSound("flesh_sound", 50)
+        	self:EmitSound("buzz_sound", 50)
+    	end
 	else
 		self:SetNextSecondaryFire(CurTime() + 5)
 		if not CLIENT then return end
+		if self.PrintDelay > CurTime() then return end
 		self.Owner:PrintMessage(HUD_PRINTTALK,"This server has disabled the harm function!")
+		self.PrintDelay = CurTime() + 4
 	end
+
 end
 
 /********************************************************

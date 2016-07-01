@@ -14,6 +14,11 @@ elseif CLIENT then
 	SWEP.DrawAmmo = false
 
 	SWEP.DrawCrosshair = true
+
+	SWEP.WepSelectIcon = surface.GetTextureID("HUD/killicons/starwars_laser")
+
+	killicon.Add( "laser_weapon", "HUD/killicons/starwars_laser", Color( 255, 80, 0, 255 ) )
+
 end
 
 SWEP.Author = "Dannelor"
@@ -49,6 +54,7 @@ function SWEP:Initialize()
 end
 
 function SWEP:Deploy()
+	if not CLIENT then return end
 	self.Owner:PrintMessage(HUD_PRINTTALK, "WARNING! THIS WEAPON IS VERY DANGEROUS!")
 	return true
 end

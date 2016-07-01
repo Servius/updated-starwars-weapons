@@ -85,7 +85,7 @@ function SWEP:PrimaryAttack()
         if found:Health() > foundmaxhealth then
         	found:SetHealth(foundmaxhealth)
         end
-        self:EmitSound("weapons/medkit/use_bacta.wav")
+        self:EmitSound("use_bacta", 100)
     end
 end
 
