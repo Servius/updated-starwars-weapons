@@ -24,22 +24,22 @@ SWEP.Spawnable = true
 SWEP.AdminOnly = true
 SWEP.Category = "Star Wars (Updated)"
 
-SWEP.HoldType = "slam"
+SWEP.HoldType = "pistol"
 SWEP.ViewModelFOV = 70
 SWEP.ViewModelFlip = false
-SWEP.UseHands = false
-SWEP.ViewModel = "models/shells/pellet.mdl"
-SWEP.WorldModel = "models/shells/pellet.mdl"
+SWEP.UseHands = true
+SWEP.ViewModel = "models/weapons/c_crowbar_frame.mdl"
+SWEP.WorldModel = "models/weapons/w_pistol.mdl"
 SWEP.ShowViewModel = true
-SWEP.ShowWorldModel = true
+SWEP.ShowWorldModel = false
 SWEP.ViewModelBoneMods = {}
 
 SWEP.VElements = {
-	["syringe"] = { type = "Model", model = "models/katharsmodels/syringe_out/syringe_out.mdl", bone = "pellet", rel = "", pos = Vector(10.909, 5.714, 4.675), angle = Angle(-1.17, 47.922, 0), size = Vector(1.014, 1.014, 1.014), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["syringe"] = { type = "Model", model = "models/weapons/w_eq_healthshot.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-1.201, 0.741, -3.563), angle = Angle(8.121, -8.627, 3.792), size = Vector(1.299, 1.299, 1.299), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
 SWEP.WElements = {
-	["syringe"] = { type = "Model", model = "models/katharsmodels/syringe_out/syringe_out.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(3.5, 2, -0.5), angle = Angle(-45.584, -12.858, 90), size = Vector(1.014, 1.014, 1.014), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["syringe"] = { type = "Model", model = "models/weapons/w_eq_healthshot.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(-2.112, 1.258, -3.589), angle = Angle(25.728, 0, 0), size = Vector(1.299, 1.299, 1.299), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
 SWEP.Primary.Recoil = 0
@@ -61,7 +61,7 @@ SWEP.PrintDelay = 0
 function SWEP:PrimaryAttack()
     self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 
-    local found
+    local victim
     local lastDot = -1 -- the opposite of what you're looking at
     self:GetOwner():LagCompensation(true)
     local aimVec = self:GetOwner():GetAimVector()
@@ -84,18 +84,18 @@ function SWEP:PrimaryAttack()
         -- Looking more in the direction of this player
         if dot > lastDot then
             lastDot = dot
-            found = v
+            victim = v
         end
     end
     self:GetOwner():LagCompensation(false)
 
-    if found then
-    	local foundmaxhealth = found:GetMaxHealth() + (found:GetMaxHealth() * 0.4 )
-        found:SetHealth(found:Health() + 150) -- HP Per a second value
-        if found:Health() > foundmaxhealth then
-        	found:SetHealth(foundmaxhealth)
+    if victim then
+    	local victimmaxhealth = victim:GetMaxHealth() + (victim:GetMaxHealth() * 0.4 )
+        victim:SetHealth(victim:Health() + 150) -- HP Per a second value
+        if victim:Health() > victimmaxhealth then
+        	victim:SetHealth(victimmaxhealth)
         end
-        self:EmitSound("squirt_sound", 30)
+        self:EmitSound("squirt_sound", 75)
     end
 end
 
@@ -111,7 +111,7 @@ function SWEP:SecondaryAttack()
 		self:SetNextSecondaryFire(CurTime())
 	else
 		self.Owner:SetHealth(self.Owner:Health() + 75)
-		self:EmitSound("weapons/medkit/squirt.wav")
+		self:EmitSound("squirt_sound", 75)
 		if self.Owner:Health() > maxhealth then
 			self.Owner:SetHealth(maxhealth)
 		end
@@ -142,7 +142,7 @@ function SWEP:Initialize()
 
 	// other initialize code goes here
 	
-	self:SetWeaponHoldType("slam")
+	self:SetWeaponHoldType( self.HoldType )
 
 	if CLIENT then
 	

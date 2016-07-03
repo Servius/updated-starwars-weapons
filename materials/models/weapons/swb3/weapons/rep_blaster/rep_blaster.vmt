@@ -1,0 +1,13 @@
+"VertexlitGeneric"
+{
+
+	"$basetexture" "models\weapons\swb3\weapons\rep_blaster\rep_blaster"
+	"$bumpmap" "models\weapons\swb3\weapons\rep_blaster\rep_blaster_nml"
+	"$halflambert" "1"				
+	"$nocull" 1	
+
+}
+
+
+
+

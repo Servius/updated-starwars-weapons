@@ -5,8 +5,8 @@ if ( SERVER ) then
 	
 end
 
-//local StunSound = Sound ("weapons/DC19_fire.wav")
 local StunSound = Sound ("weapons/sw_stun.wav")
+local EmptyAmmo		= Sound("weapons/sw_noammo.wav")
 local Phaseredrags = {}
 local Phaseruniquetimer1 = 0
 local disablePrintTime = 0
@@ -22,12 +22,17 @@ function SWEP:Stun()
 	self.Primary.DefaultClip	= 50
 	self.Primary.Automatic		= false
 	self.Primary.Ammo			= "ar2"
-	self.Primary.Tracer 		= "effect_sw_laser_yellow"
+	self.Primary.Tracer 		= "effect_sw_laser_blue"
 	
 	self.Weapon:SetNextSecondaryFire( CurTime() + self.Primary.Delay )
 	self.Weapon:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
 
 	if ( !self:CanPrimaryAttack() ) then return end
+
+	if ( self:Clip1() < 10 ) then
+		self.Weapon:EmitSound( EmptyAmmo )
+		return
+	end
 
 	self.Weapon:EmitSound( StunSound )
 

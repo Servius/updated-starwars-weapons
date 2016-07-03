@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "starwars\items\bacta\bacta_mp"
+	"$bumpmap" "starwars\items\bacta\bacta_mp_n"
+}

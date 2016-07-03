@@ -5,12 +5,14 @@ if ( SERVER ) then
 end
 
 local disablePrintTime = 0
+local EmptyAmmo		= Sound("weapons/sw_noammo.wav")
+local VaporizeSound = Sound("weapons/sw_vaporize.wav")
 
 function SWEP:Vaporize()
 
 	if weaponVaporize:GetBool() then
 
-	self.Primary.Damage = 1000
+	self.Primary.Damage = 0
 	self.Primary.Recoil			= 0.75
 	self.Primary.NumShots		= 1
 	self.Primary.Cone			= 0.0125
@@ -19,57 +21,48 @@ function SWEP:Vaporize()
 	self.Primary.DefaultClip	= 50
 	self.Primary.Automatic		= false
 	self.Primary.Ammo			= "ar2"
-	self.Primary.Tracer 		= "effect_sw_laser_red"
+	self.Primary.Tracer 		= "effect_sw_laser_blue"
 
 	self.Weapon:SetNextSecondaryFire( CurTime() + self.Primary.Delay )
-	self.Weapon:SetNextPrimaryFire( CurTime() + 1.5 )
-
+	self.Weapon:SetNextPrimaryFire( CurTime() + self.Primary.Delay )
+	
 	if ( !self:CanPrimaryAttack() ) then return end
 
-	self.Weapon:EmitSound("weapons/sw_vaporize.wav", 150)
-	-- Emit the gun sound when you fire
-
-	self.Owner:ViewPunch( Angle( math.Rand(-20,-0.1) * self.Primary.Recoil, math.Rand(-0.1,0.1) *self.Primary.Recoil, 0 ) )
-
-	if SERVER then
-	
-		local trace = {}
-			trace.start = self.Owner:GetShootPos()
-			trace.endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * 10^14
-			trace.filter = self.Owner 
-		local tr = util.TraceLine(trace)
-		
-		local vAng = (tr.HitPos-self.Owner:GetShootPos()):GetNormal():Angle()
-		
-		local dmginfo = DamageInfo();
-		dmginfo:SetDamage( 500 );
-		dmginfo:SetAttacker( self:GetOwner() );
-		dmginfo:SetInflictor( self );
-		
-		if( dmginfo.SetDamageType ) then
-			dmginfo:SetDamagePosition( tr.HitPos );
-			dmginfo:SetDamageType( DMG_ENERGYBEAM  );
-		end
-		
-		tr.Entity:DispatchTraceAttack( dmginfo, tr.HitPos, tr.HitPos - vAng:Forward() * 20 );
-		
-		tr.Entity:SetKeyValue("targetname", "disTarg")
-		local dis = ents.Create("env_entity_dissolver")
-		dis:SetKeyValue("magnitude", "5")
-		dis:SetKeyValue("dissolvetype", "0")
-		dis:SetKeyValue("target", "disTarg")
-		dis:Spawn()
-		dis:Fire("Dissolve", "disTarg", 0)
-		dis:Fire("kill", "", 0)
-
+	if (self:Clip1() < 50) then
+		self.Weapon:EmitSound( EmptyAmmo ) 
+		return 
 	end
 	
-	self:TakePrimaryAmmo(50)
-
+	// Play shoot sound
+	self.Weapon:EmitSound( VaporizeSound )
+	
+	// Shoot the bullet
 	self:CSShootBullet( self.Primary.Damage, self.Primary.Recoil, self.Primary.NumShots, self.Primary.Cone )
 	
-	if ((game.SinglePlayer() and SERVER) or CLIENT) then
-		self.Weapon:SetNetworkedFloat("LastShootTime", CurTime())
+	// Remove 1 bullet from our clip
+	self:TakePrimaryAmmo( 50 )
+	
+	if ( self.Owner:IsNPC() ) then return end
+	
+	// Punch the player's view
+	self.Owner:ViewPunch( Angle( math.Rand(-0.2,-0.1) * self.Primary.Recoil, math.Rand(-0.1,0.1) *self.Primary.Recoil, 0 ) )
+	
+	// In singleplayer this function doesn't get called on the client, so we use a networked float
+	// to send the last shoot time. In multiplayer this is predicted clientside so we don't need to 
+	// send the float.
+	if ( (game.SinglePlayer() && SERVER) || CLIENT ) then
+		self.Weapon:SetNetworkedFloat( "LastShootTime", CurTime() )
+	end
+		if (SERVER) then
+		local d = DamageInfo()
+		d:SetDamage(1000)
+		d:SetDamageType(DMG_DISSOLVE)
+		d:SetAttacker(self.Owner)
+		d:SetInflictor(self.Owner)
+		local ent = self.Owner:GetEyeTraceNoCursor().Entity
+		if ( IsValid(ent) ) then
+			ent:TakeDamageInfo(d)
+		end
 	end
 
 	else

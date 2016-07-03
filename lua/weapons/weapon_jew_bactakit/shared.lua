@@ -1,12 +1,12 @@
 if CLIENT then
 
-	SWEP.PrintName = "Advanced Bacta Tube"
+	SWEP.PrintName = "Bacta Gel Tube"
 	SWEP.Author = "Doctor Jew"
 	SWEP.Slot = 4
 	SWEP.SlotPos = 0
-	SWEP.Description = "Heals the wounded on the battlefield"
+	SWEP.Description = "Heals the wounded with this bacta gel."
 	SWEP.Contact = ""
-	SWEP.Purpose = "Heal players on the battlefield!"
+	SWEP.Purpose = "Heal other players."
 	SWEP.Instructions = "Left click to heal someone."
 
 	SWEP.WepSelectIcon = surface.GetTextureID("HUD/killicons/bacta_Kit")
@@ -24,27 +24,31 @@ SWEP.Spawnable = true
 SWEP.AdminOnly = true
 SWEP.Category = "Star Wars (Updated)"
 
-SWEP.HoldType = "slam"
-SWEP.ViewModelFOV = 70
+SWEP.HoldType = "pistol"
+SWEP.ViewModelFOV = 80
 SWEP.ViewModelFlip = false
 SWEP.UseHands = false
 SWEP.ViewModel = "models/shells/pellet.mdl"
-SWEP.WorldModel = "models/shells/pellet.mdl"
-SWEP.ShowViewModel = true
-SWEP.ShowWorldModel = true
-SWEP.ViewModelBoneMods = {}
-SWEP.VElements = {
-	["bacta_tank"] = { type = "Model", model = "models/lt_c/sci_fi/91_container_small.mdl", bone = "pellet", rel = "", pos = Vector(35.844, 27.531, 17.142), angle = Angle(0, 0, -90), size = Vector(0.95, 0.95, 0.95), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+SWEP.WorldModel = "models/weapons/w_pistol.mdl"
+SWEP.ShowViewModel = false
+SWEP.ShowWorldModel = false
+SWEP.ViewModelBoneMods = {
+	["pellet"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
 }
+
+SWEP.VElements = {
+	["bacta"] = { type = "Model", model = "models/starwars/items/bacta_small.mdl", bone = "pellet", rel = "", pos = Vector(9.529, 9.303, 5.067), angle = Angle(0.143, -8.29, -95.637), size = Vector(0.5, 0.5, 0.5), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+}
+
 SWEP.WElements = {
-	["bacta_tank"] = { type = "Model", model = "models/lt_c/sci_fi/91_container_small.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.596, 2, 1.557), angle = Angle(22.208, -26.883, 180), size = Vector(0.4, 0.4, 0.4), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["bacta"] = { type = "Model", model = "models/starwars/items/bacta_small.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(4.467, 1.172, -5.171), angle = Angle(12.229, 2.851, 0), size = Vector(0.5, 0.5, 0.677), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
 SWEP.Primary.Recoil = 0
 SWEP.Primary.ClipSize  = -1
 SWEP.Primary.DefaultClip = 1
 SWEP.Primary.Automatic  = true
-SWEP.Primary.Delay = 1
+SWEP.Primary.Delay = 5
 SWEP.Primary.Ammo = "none"
 SWEP.IronSightsPos = Vector(0, 0, 0)
 SWEP.IronSightsAng = Vector(0, 0, 0)
@@ -52,26 +56,25 @@ SWEP.Secondary.Recoil = 0
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = true
-SWEP.Secondary.Delay = 0.3
+SWEP.Secondary.Delay = 10
 SWEP.Secondary.Ammo = "none"
 
 function SWEP:PrimaryAttack()
     self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 
     local found
-    local lastDot = -1 -- the opposite of what you're looking at
+    local lastDot = -1
     self:GetOwner():LagCompensation(true)
     local aimVec = self:GetOwner():GetAimVector()
 
     for k,v in pairs(player.GetAll()) do
-        local maxhealth = v:GetMaxHealth() + (v:GetMaxHealth() * 0.25) -- Max HP to heal could be set job specific, create a table to reference further up and put it here with an or statement
+        local maxhealth = v:GetMaxHealth() + (v:GetMaxHealth() * 0.25)
         if v == self:GetOwner() or v:GetShootPos():Distance(self:GetOwner():GetShootPos()) > 85 or v:Health() >= maxhealth or not v:Alive() then continue end
 
         local direction = v:GetShootPos() - self:GetOwner():GetShootPos()
         direction:Normalize()
         local dot = direction:Dot(aimVec)
 
-        -- Looking more in the direction of this player
         if dot > lastDot then
             lastDot = dot
             found = v
@@ -81,7 +84,7 @@ function SWEP:PrimaryAttack()
 
     if found then
     	local foundmaxhealth = found:GetMaxHealth() + (found:GetMaxHealth() * 0.25)
-        found:SetHealth(found:Health() + 50) -- HP Per a second value
+        found:SetHealth(found:Health() + 50)
         if found:Health() > foundmaxhealth then
         	found:SetHealth(foundmaxhealth)
         end
@@ -89,7 +92,18 @@ function SWEP:PrimaryAttack()
     end
 end
 
-function SWEP.SecondaryAttack()
+function SWEP:SecondaryAttack()
+	local maxhealth = ( self.Owner:GetMaxHealth() + (self.Owner:GetMaxHealth() * 0.25) )
+	self:SetNextSecondaryFire(CurTime() + self.Secondary.Delay)
+
+	if self.Owner:Health() >= maxhealth then return end
+	
+	self.Owner:SetHealth( self.Owner:Health() + 50 )
+	self:EmitSound("use_bacta", 100)
+
+	if self.Owner:Health() > maxhealth then
+		self.Owner:SetHealth( maxhealth )
+	end
 
 end
 

@@ -51,10 +51,6 @@ SWEP.Secondary.Automatic	= false
 SWEP.Secondary.Ammo			= "none"
 
 
-
-
-
-
 /*---------------------------------------------------------
 ---------------------------------------------------------*/
 function SWEP:Initialize()
@@ -66,7 +62,8 @@ function SWEP:Initialize()
 	end
 	
 	self:SetWeaponHoldType( self.HoldType )
-	self.Weapon:SetNetworkedBool( "Ironsights", false ) 
+	self.Weapon:SetNetworkedBool( "Ironsights", false )
+	self.Weapon:SetNWBool( "Scoped", false ) 
 end
 
 /*---------------------------------------------------------

@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/weapons/w_models/iondisruptor/optics"
+	"$nocull" 1
+}

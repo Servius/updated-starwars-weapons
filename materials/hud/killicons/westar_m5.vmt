@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "hud/killicons/westar_m5"
+	"$translucent" 1
+}

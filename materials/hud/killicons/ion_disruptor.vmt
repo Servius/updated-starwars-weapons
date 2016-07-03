@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "hud/killicons/ion_disruptor"
+	"$translucent" 1
+}

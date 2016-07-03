@@ -24,32 +24,34 @@ SWEP.Spawnable = true
 SWEP.AdminOnly = true
 SWEP.Category = "Star Wars (Updated)"
 
-SWEP.HoldType = "slam"
+SWEP.HoldType = "pistol"
 SWEP.ViewModelFOV = 70
 SWEP.ViewModelFlip = false
-SWEP.UseHands = false
-SWEP.ViewModel = "models/shells/pellet.mdl"
-SWEP.WorldModel = "models/shells/pellet.mdl"
+SWEP.UseHands = true
+SWEP.ViewModel = "models/weapons/c_grenade.mdl"
+SWEP.WorldModel = "models/weapons/w_pistol.mdl"
 SWEP.ShowViewModel = true
-SWEP.ShowWorldModel = true
-SWEP.ViewModelBoneMods = {}
+SWEP.ShowWorldModel = false
+SWEP.ViewModelBoneMods = {
+	["ValveBiped.Grenade_body"] = { scale = Vector(0.009, 0.009, 0.009), pos = Vector(0, 0, 0), angle = Angle(0, 0, 0) }
+}
 
 
 SWEP.VElements = {
-	["Tube"] = { type = "Model", model = "models/lt_c/sci_fi/coffee_mug.mdl", bone = "pellet", rel = "", pos = Vector(5.714, 5.714, 4), angle = Angle(-99.351, 3.506, -52.598), size = Vector(0.4, 0.4, 0.4), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["tip"] = { type = "Model", model = "models/lt_c/sci_fi/am_container.mdl", bone = "pellet", rel = "Tube", pos = Vector(0, 0, 3.5), angle = Angle(0, 54.935, 0), size = Vector(0.039, 0.039, 0.039), color = Color(0, 0, 0, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["body"] = { type = "Model", model = "models/lt_c/sci_fi/coffee_mug.mdl", bone = "ValveBiped.Grenade_body", rel = "", pos = Vector(-0.796, -0.452, 6.25), angle = Angle(0, 0, 180), size = Vector(1, 1.027, 1.779), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["blade"] = { type = "Model", model = "models/xqm/afterburner1.mdl", bone = "ValveBiped.Grenade_body", rel = "", pos = Vector(-0.88, -0.454, -7.796), angle = Angle(0, 0, -180), size = Vector(0.079, 0.079, 0.079), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
 SWEP.WElements = {
-	["Tube"] = { type = "Model", model = "models/lt_c/sci_fi/coffee_mug.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(2.599, 1.6, 1), angle = Angle(29.221, -8.183, 180), size = Vector(0.699, 0.699, 0.699), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
-	["tip"] = { type = "Model", model = "models/lt_c/sci_fi/am_container.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "Tube", pos = Vector(0, 0, 5.8), angle = Angle(0, 54.935, 0), size = Vector(0.07, 0.07, 0.07), color = Color(0, 0, 0, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
+	["blade"] = { type = "Model", model = "models/xqm/afterburner1.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(5, 1.279, -8.41), angle = Angle(11.326, -19.871, 180), size = Vector(0.079, 0.079, 0.079), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} },
+	["body"] = { type = "Model", model = "models/lt_c/sci_fi/coffee_mug.mdl", bone = "ValveBiped.Bip01_R_Hand", rel = "", pos = Vector(1.861, 0.939, 5.524), angle = Angle(-0.622, 86.848, 167.143), size = Vector(1, 1.027, 1.779), color = Color(255, 255, 255, 255), surpresslightning = false, material = "", skin = 0, bodygroup = {} }
 }
 
 SWEP.Primary.Recoil = 0
 SWEP.Primary.ClipSize  = -1
 SWEP.Primary.DefaultClip = 1
 SWEP.Primary.Automatic  = true
-SWEP.Primary.Delay = 1
+SWEP.Primary.Delay = 2
 SWEP.Primary.Ammo = "none"
 SWEP.IronSightsPos = Vector(4.44, 0, 1.279)
 SWEP.IronSightsAng = Vector(0, 0, 0)
@@ -57,7 +59,7 @@ SWEP.Secondary.Recoil = 0
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = 1
 SWEP.Secondary.Automatic = true
-SWEP.Secondary.Delay = 1
+SWEP.Secondary.Delay = 2
 SWEP.Secondary.Ammo = "none"
 SWEP.PrintDelay = 0
 
@@ -66,19 +68,18 @@ function SWEP:PrimaryAttack()
 	self:SetNextPrimaryFire(CurTime() + self.Primary.Delay)
 
     local found
-    local lastDot = -1 -- the opposite of what you're looking at
+    local lastDot = -1
     self:GetOwner():LagCompensation(true)
     local aimVec = self:GetOwner():GetAimVector()
 
     for k,v in pairs(player.GetAll()) do
-        local maxhealth = v:GetMaxHealth() -- Max HP to heal could be set job specific, create a table to reference further up and put it here with an or statement
+        local maxhealth = v:GetMaxHealth()
         if v == self:GetOwner() or v:GetShootPos():Distance(self:GetOwner():GetShootPos()) > 85 or v:Health() > maxhealth or not v:Alive() then continue end
 
         local direction = v:GetShootPos() - self:GetOwner():GetShootPos()
         direction:Normalize()
         local dot = direction:Dot(aimVec)
 
-        -- Looking more in the direction of this player
         if dot > lastDot then
             lastDot = dot
             found = v
@@ -88,7 +89,8 @@ function SWEP:PrimaryAttack()
 
     if found then
     	local maxhealth = found:GetMaxHealth()
-        found:SetHealth(found:Health() + 2) -- HP Per a second value
+    	if ( found:Health() >= found:GetMaxHealth() ) then return end
+        found:SetHealth(found:Health() + 5)
         self:EmitSound("buzz_sound", 50)
         if found:Health() > maxhealth then
         	found:SetHealth(maxhealth)
@@ -103,7 +105,7 @@ function SWEP:SecondaryAttack()
 		self:SetNextSecondaryFire(CurTime() + self.Secondary.Delay)
 
     	local found
-    	local lastDot = -1 -- the opposite of what you're looking at
+    	local lastDot = -1
     	self:GetOwner():LagCompensation(true)
     	local aimVec = self:GetOwner():GetAimVector()
 
@@ -114,7 +116,6 @@ function SWEP:SecondaryAttack()
         	direction:Normalize()
         	local dot = direction:Dot(aimVec)
 
-        	-- Looking more in the direction of this player
         	if dot > lastDot then
             	lastDot = dot
             	found = v
@@ -124,10 +125,10 @@ function SWEP:SecondaryAttack()
 
     	if found then
         	if SERVER then
-        		found:TakeDamage(3, self:GetOwner(), self:GetOwner():GetActiveWeapon())
+        		found:TakeDamage(6, self:GetOwner(), self:GetOwner():GetActiveWeapon())
         	end
        		found:EmitSound("flesh_sound", 50)
-        	self:EmitSound("buzz_sound", 50)
+        	self.Weapon:EmitSound("buzz_sound", 35)
     	end
 	else
 		self:SetNextSecondaryFire(CurTime() + 5)
@@ -137,6 +138,10 @@ function SWEP:SecondaryAttack()
 		self.PrintDelay = CurTime() + 4
 	end
 
+end
+
+function SWEP:Deploy()
+	self.Weapon:EmitSound("startup", 35)
 end
 
 /********************************************************
@@ -207,6 +212,7 @@ function SWEP:Holster()
 		end
 	end
 	
+	self.Weapon:EmitSound("shutdown", 35)
 	return true
 end
 
