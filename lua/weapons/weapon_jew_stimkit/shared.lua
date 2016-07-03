@@ -1,6 +1,6 @@
 if CLIENT then
 
-	SWEP.PrintName = "Field Stim Shot"
+	SWEP.PrintName = "Health Stim Shot"
 	SWEP.Author = "Doctor Jew"
 	SWEP.Slot = 4
 	SWEP.SlotPos = 0
