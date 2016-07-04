@@ -42,4 +42,5 @@ This addon is under the GNU GPL v3 License. All modifications MUST have their so
 
 ### Workshop Addons:
 
+ * [Star Wars Weapons Extra](http://steamcommunity.com/sharedfiles/filedetails/?id=712974155) to check out this addon on the workshop.
  * [Star Wars Weapons](http://steamcommunity.com/sharedfiles/filedetails/?id=183549197) for the original weapons.
