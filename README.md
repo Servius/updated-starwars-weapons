@@ -11,6 +11,7 @@ Currently Includes:
  * WESTAR-M5
  * T-7 Ion Disruptor
  * EMP Rifle
+ * X-8 Night Sniper
  * Improved Detonator
  * Improved E60-R
  * Star Wars Oribital Laser

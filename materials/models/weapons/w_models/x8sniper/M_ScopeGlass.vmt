@@ -1,0 +1,6 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/weapons/w_models/x8sniper/M_ScopeGlass"
+	"$bumpmap" "models/weapons/w_models/x8sniper/M_X8NightSniper_N"
+	"$nocull" 1
+}

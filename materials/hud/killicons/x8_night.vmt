@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "hud/killicons/x8_night"
+	"$translucent" 1
+}

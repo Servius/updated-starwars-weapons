@@ -13,7 +13,7 @@ if ( CLIENT ) then
 	SWEP.SlotPos			= 3
 	SWEP.WepSelectIcon = surface.GetTextureID("HUD/killicons/emp_rifle")
 	
-	killicon.Add( "weapon_jew_dc15s", "HUD/killicons/emp_rifle", Color( 255, 80, 0, 255 ) )
+	killicon.Add( "weapon_jew_emp_rifle", "HUD/killicons/emp_rifle", Color( 255, 80, 0, 255 ) )
 
 end
 
@@ -39,7 +39,7 @@ SWEP.Weight					= 8
 SWEP.AutoSwitchTo			= false
 SWEP.AutoSwitchFrom			= false
 
-local FireSound 			= Sound ("weapons/ca88_fire.mp3");
+local FireSound 			= Sound ("weapons/ca88_fire.mp3")
 local ReloadSound			= Sound ("weapons/synbf3/e11_reload.wav")
 local EmptySound			= Sound ("weapons/sw_noammo.wav")
 local DeploySound			= Sound ("weapons/sw_change.wav")
@@ -149,7 +149,7 @@ function SWEP:CSShootBullet( dmg, recoil, numbul, cone )
 end
 
 function SWEP:FireAnimationEvent( position, angles, event, options )
-    -- Disables ashell ejection
+    -- Disables shell ejection
     if (event == 6001) then return true end  
 end
 
@@ -158,7 +158,7 @@ function SWEP:Reload()
 		if self.Owner:GetAmmoCount(self.Primary.Ammo) > 0 then
 			self.Weapon:EmitSound( ReloadSound )
 		end
-		self.Weapon:DefaultReload( ACT_VM_RELOAD );
+		self.Weapon:DefaultReload( ACT_VM_RELOAD )
 		self:SetIronsights( false )
 	end
 end
@@ -203,7 +203,7 @@ function SWEP:DrawHUD()
 			surface.DrawLine( x + length, y, x + gap, y )
 			surface.DrawLine( x, y - length, x, y - gap )
 			surface.DrawLine( x, y + length, x, y + gap )
-			return;
+			return
 		end
 		
 		local Scale = ScrH()/480
