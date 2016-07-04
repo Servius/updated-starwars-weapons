@@ -1,0 +1,6 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/weapons/w_models/emprifle/M_EmpRifle"
+	"$bumpmap" "models/weapons/w_models/emprifle/M_EmpRifle_N"
+	"$nocull" 1
+}

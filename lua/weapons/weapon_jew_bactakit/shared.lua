@@ -107,6 +107,10 @@ function SWEP:SecondaryAttack()
 
 end
 
+function SWEP:Deploy()
+	self.Weapon:EmitSound("startup", 35)
+end
+
 /********************************************************
 	SWEP Construction Kit base code
 		Created by Clavus

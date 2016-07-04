@@ -74,6 +74,7 @@ local FireSound 			= Sound ("weapons/dc15s_fire.wav");
 local ReloadSound			= Sound ("weapons/synbf3/e11_reload.wav");
 local EmptySound			= Sound ("weapons/sw_noammo.wav")
 local FireModeSound			= Sound ("weapons/sw_detonator/sw_detonator_select.wav")
+local DeploySound			= Sound ("weapons/sw_change.wav")
 
 /********************************************************
 	SWEP Construction Kit base code
@@ -600,6 +601,10 @@ function SWEP:PrintMode()
 	end
 end
 
+function SWEP:Deploy()
+	self:EmitSound( DeploySound )
+end
+
 function SWEP:PrimaryAttack()
 
 	self.Weapon:SetNextSecondaryFire( CurTime() + self.Primary.Delay )
@@ -617,7 +622,7 @@ function SWEP:PrimaryAttack()
 	// Take Ammo
 	if self.SMode == 2 then
 		self.Weapon:SetNextPrimaryFire( CurTime() + self.BurstDelay )
-		timer.Create("burstfire", 0.3, 3, function()
+		timer.Create("burstfire", 0.2, 3, function()
 			if self:Clip1() > 0 then
 				self.Weapon:EmitSound( FireSound ) 
 				self:CSShootBullet( self.Primary.Damage, self.Primary.Recoil, self.Primary.NumShots, self.Primary.Cone )

@@ -72,6 +72,7 @@ SWEP.IronSightsAng = Vector(-32.426, 0.66, 0)
 local FireSound 			= Sound ("weapons/iondisruptor_fire.mp3");
 local ReloadSound			= Sound ("weapons/synbf3/e11_reload.wav");
 local EmptySound			= Sound ("weapons/sw_noammo.wav")
+local DeploySound			= Sound ("weapons/sw_change.wav")
 
 /********************************************************
 	SWEP Construction Kit base code
@@ -565,6 +566,10 @@ if CLIENT then
 		
 	end
 	
+end
+
+function SWEP:Deploy()
+	self:EmitSound( DeploySound )
 end
 
 function SWEP:PrimaryAttack()
