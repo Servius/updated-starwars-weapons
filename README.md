@@ -8,6 +8,9 @@ Currently Includes:
  * Shadow Virus Grenade
  * DC-17m Anti-Armor
  * DC-17m Shotgun
+ * WESTAR-M5
+ * T-7 Ion Disruptor
+ * EMP Rifle
  * Improved Detonator
  * Improved E60-R
  * Star Wars Oribital Laser
