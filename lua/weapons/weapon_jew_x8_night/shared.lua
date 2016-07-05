@@ -40,7 +40,7 @@ SWEP.Weight					= 8
 SWEP.AutoSwitchTo			= false
 SWEP.AutoSwitchFrom			= false
 
-local FireSound 			= Sound ("weapons/synbf3/dl44_fire.wav");
+local FireSound 			= Sound ("weapons/sw_x8/x8_fire_" .. math.random(1,6) .. ".wav")
 local ReloadSound			= Sound ("weapons/synbf3/e11_reload.wav")
 local EmptySound			= Sound ("weapons/sw_noammo.wav")
 local DeploySound			= Sound ("weapons/sw_change.wav")
