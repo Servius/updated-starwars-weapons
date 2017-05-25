@@ -1,5 +1,18 @@
 # Updated Star Wars Weapons
 
+### ToDo List:
+* Icons switched to pngs. 
+* Compression for all icons. 
+* Icons moved to shared resources addon. 
+* Double check that all weapons work on .ogg. If not keep corresponding .wav files. 
+* Move entities over to shared resources. 
+* Clear out effects folder in addon. Should now be dependant on shared resources. 
+* Check in regarding a switch to the TFA Base later down the road. 
+
+
+
+
+
 Currently Includes:
 
  * DC-15S Universal
