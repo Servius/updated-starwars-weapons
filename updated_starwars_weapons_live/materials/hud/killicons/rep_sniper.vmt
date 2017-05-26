@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "hud/killicons/rep_sniper"
+	"$translucent" 1
+}

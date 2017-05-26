@@ -1,7 +1,0 @@
-"UnlitGeneric"
-{
-	"$basetexture" "VGUI/entities/weapon_jew_stimkit"
-	"$nolod" 1
-	"$vertexalpha" 1
-	"$vertexcolor" 1
-}
